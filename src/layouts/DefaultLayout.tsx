@@ -4,9 +4,15 @@ import { PropsWithChildren } from 'react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { useIsMounted } from '@/hooks'
 
 export const DefaultLayout = ({ children }: PropsWithChildren) => {
   const router = usePathname()
+  const isMounted = useIsMounted()
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <NextThemesProvider attribute="class" defaultTheme="light">
